@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Paladar feliz </title>
+    <style>
+        /* Reseteo general */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+
+        /* Fondo de la pantalla de inicio */
+        body {
+            background-color: #faace6;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            color: #333;
+        }
+
+        /* Sección de pantalla de inicio */
+        .pantalla-inicio {
+            text-align: center;
+            background-color: #faf9fa;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Logo */
+        .logo {
+            width: 220px;
+            height: auto;
+            margin-bottom: 20px;
+        }
+
+        /* Título y eslogan */
+        h1 {
+            color: #d87093;
+            font-size: 2.5em;
+            margin-bottom: 10px;
+        }
+
+        .eslogan {
+            color: #8b4513;
+            font-size: 1.2em;
+            margin-bottom: 30px;
+        }
+
+        /* Botones de navegación */
+        .botones-navegacion button {
+            background-color: #d87093;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            margin: 5px;
+            font-size: 1em;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .botones-navegacion button:hover {
+            background-color: #c45a7a;
+        }
+
+        /* Estilos de secciones ocultas */
+        .seccion {
+            text-align;
+            padding: 20px;
+            background-color: #fff5e6;
+            color: #333;
+            border-radius: 10px;
+            margin: 20px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            display: none;
+        }
+         /* Estilo para el mensaje de agradecimiento */
+         .mensaje-gracias {
+            display: none;
+            color: #d87093;
+            font-size: 1.2em;
+            margin-top: 15px;
+        }
+
+        /* Estilo para las tarjetas de productos */
+        .menu-productos {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            justify-content: center;
+        }
+
+        .producto {
+            width: 200px;
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            text-align: center;
+            cursor: pointer;
+            transition: transform 0.3s;
+        }
+
+        .producto img {
+            width: 100%;
+            height: auto;
+        }
+
+        .producto:hover {
+            transform: scale(1.05);
+        }
+
+        .producto h3 {
+            color: #d87093;
+            padding: 10px 0;
+        }
+
+        .producto p {
+            padding: 0 10px 10px;
+            color: #666;
+        }
+
+        /* Ventana emergente */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.7);
+            justify-content: center;
+            align-items: center;
+        }
+
+        .modal-content {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            width: 90%;
+            max-width: 500px;
+            text-align: center;
+            position: relative;
+        }
+
+        .modal-content img {
+            width: 100%;
+            border-radius: 10px;
+        }
+
+        .close-modal {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: #d87093;
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 30px;
+            height: 30px;
+            font-size: 20px;
+            cursor: pointer;
+        }
+    
+        /* Formularios en contacto */
+        form {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        label, input, textarea, button[type="submit"] {
+            width: 100%;
+            max-width: 400px;
+            margin: 10px 0;
+        }
+
+        input, textarea {
+            padding: 8px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        button[type="submit"] {
+            background-color: #d87093;
+            color: white;
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        button[type="submit"]:hover{
+            background-color: #c45a7a;
+        }   
+    <style>
+    /* Estilos para el contenedor desplazable */
+    .scroll-container {
+        overflow-x: auto;
+        padding: 10px;
+        display: flex;
+        gap: 15px;
+    }
+
+    .scroll-container::-webkit-scrollbar {
+        height: 8px;
+    }
+
+    .scroll-container::-webkit-scrollbar-thumb {
+        background-color: #d87093;
+        border-radius: 4px;
+    }
+
+    .scroll-container::-webkit-scrollbar-track {
+        background: #faf9fa;
+    }
+        
+    </style>
+</head>
+<body>
+
+    <!-- Pantalla de Inicio -->
+    <section id="inicio" class="pantalla-inicio">
+        <div class="contenedor-inicio">
+            <img src="imagenes/img. 1.png" alt="Logo de Pastelería Paladar feliz" class="logo">
+            <h1>Pastelería Paladar Feliz</h1>
+            <p class="eslogan">¡Endulza cada momento!</p>
+            <div class="botones-navegacion">
+                <button onclick="mostrarSeccion('productos')">Productos</button>
+                <button onclick="mostrarSeccion('servicios')">Servicios</button>
+                <button onclick="mostrarSeccion('nosotros')">Nosotros</button>
+                <button onclick="mostrarSeccion('contacto')">Contacto</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Secciones Dinámicas (Ocultas inicialmente) -->
+    <section id="productos" class="seccion">
+        <h2>Menu</h2>
+        <p>Explora nuestra variedad de postres.</p>
+        <div class="menu-productos">
+            <!-- Ejemplo de tarjeta de producto -->
+            <div class="producto" onclick="mostrarProducto('Pasteles grandes estilo Americano', 'Sabor chocolate obscuro o vainilla, Relleno de durazno y mermelada de fresa, Relleno de piña y mermelada de piña y sin relleno.', 'imagenes/pastel-chocolate.jpg')">
+                <img src="imagenes/img. 2.jpg" alt="Pastel">
+                <h3>Pasteles grandes estilo Americano</h3>
+                <p>Desde $380 a 480 MXN</p>
+            </div>
+            <div class="producto" onclick="mostrarProducto('Pasteles medianos estilo Americano', 'Sabor chocolate obscuro o vainilla, Relleno de durazno y mermelada de fresa, Relleno de piña y mermelada de piña y sin relleno.', 'imagenes/pastel-chocolate.jpg')">
+                <img
+                 src="imagenes/pastel vainilla.jpg" alt="Pastel">
+                <h3>Pasteles medianos estilo Americano</h3>
+                <p>Desde $240 a 350 MXN</p>
+            </div>
+            <div class="producto" onclick="mostrarProducto('Pasteles grandes estilo tres leches', 'Sabor chocolate obscuro o vainilla, Relleno de durazno y mermelada de fresa, Relleno de piña y mermelada de piña y sin relleno.', 'imagenes/pastel-chocolate.jpg')">
+                <img src="imagenes/img. 4.png" alt="Pastel">
+                <h3>Pasteles grandes estilo tres leches</h3>
+                <p>Desde $440 a 530 MXN</p>
+            </div>
+            <div class="producto" onclick="mostrarProducto('Pasteles medianos estilo tres leches', 'Sabor chocolate obscuro o vainilla, Relleno de durazno y mermelada de fresa, Relleno de piña y mermelada de piña y sin relleno.', 'imagenes/pastel-chocolate.jpg')">
+                <img src="imagenes/img. 5.webp" alt="Pastel">
+                <h3>Pasteles medianos estilo tres leches</h3>
+                <p>Desde $320 a 410 MXN</p>
+            </div>
+            <div class="producto" onclick="mostrarProducto('Rebanadas de pastel estilo Americano','Sabor chocolate obscuro o vainilla, Relleno de durazno y mermelada de fresa, Relleno de piña y mermelada de piña y sin relleno.', 'imagenes/pastel-chocolate.jpg')">
+            <img src="imagenes/img. 3.jpg" alt="Pastel">
+                <h3>Rebanadas de pastel estilo Americno<h3>
+                <p>Desde $38 a 48 MXN</p>
+            </div>  
+        <div class="producto" onclick="mostrarProducto('Rebanadas de pastel estilo tres leches','Sabor chocolate obscuro o vainilla, Relleno de durazno y mermelada de fresa, Relleno de piña y mermelada de piña y sin relleno.', 'imagenes/pastel-chocolate.jpg')">
+        <img src="imagenes/img. 6.jpg" alt="Pastel">
+            <h3>Rebanadas de pastel estilo tres leches<h3>
+            <p>Desde $44 a 53 MXN</p>
+        </div>
+        <div class="producto" onclick="mostrarProducto('Bebidas','Frappé de oreo, Frappé de moca, Licuado de fresa, Chocomilk.', 'imagenes/pastel-chocolate.jpg')">
+            <img src="imagenes/img. 7.jpg" alt="Pastel">
+                <h3>Bebidas<h3>
+                <p>Desde $44 a 76 MXN</p>
+            </div>  
+            <!-- Agrega más productos aquí -->
+        </div>
+    </section>
+
+     <!-- Modal para mostrar detalles de productos -->
+     <div id="modalProducto" class="modal">
+        <div class="modal-content">
+            <button class="close-modal" onclick="cerrarModal()">×</button>
+            <img id="modalImagen" src="" alt="">
+            <h3 id="modalTitulo"></h3>
+            <p id="modalDescripcion"></p>
+        </div>
+    </div>
+
+    <script>
+        // Función para mostrar una sección y ocultar las demás
+        function mostrarSeccion(seccionId) {
+            document.querySelectorAll('.seccion').forEach(seccion => {
+                seccion.style.display = 'none';
+            });
+            document.getElementById(seccionId).style.display = 'block';
+        }
+
+        // Función para mostrar detalles del producto en modal
+        function mostrarProducto(titulo, descripcion, imagen) {
+            document.getElementById('modalTitulo').textContent = titulo;
+            document.getElementById('modalDescripcion').textContent = descripcion;
+            document.getElementById('modalImagen').src = imagen;
+            document.getElementById('modalProducto').style.display = 'flex';
+        }
+
+        // Función para cerrar el modal
+        function cerrarModal() {
+            document.getElementById('modalProducto').style.display = 'none';
+        }
+    </script>
+
+    <section id="servicios" class="seccion">
+        <img src="imagenes/img. 8.jpeg" alt="center">
+        <h2>Servicios</h2>
+        <p>El servicio que nosotros vamos a brindar será de que nuestros productos también se entreguen a domicilio, contando con una excelente calidad en los postres, ya que para nosotros lo más importante son los clientes, por el motivo de que son quienes nos generan más ganancias, es así que debemos de ofrecerles una buena atención para que se sientan satisfechos y cumplir sus expectativas.</p>
+    </section>
+
+    <section id="nosotros" class="seccion">
+        <h2>Sobre Nosotros</h2>
+        <p>El compromiso de esta empresa es elaborar pasteles y licuados de alta calidad para posteriormente ser vendido a todo el publico en general que desee degustar un delicioso postre acompañado de una bebida a precios accesibles.</p>
+        <br>
+        <p>Misión: Elaborar productos de alta calidad satisfaciendo los paladares más exigentes de la región utilizando las mejores técnicas e innovando nuevos postres con el propósito de entregar a nuestros clientes excelentes productos.</p>
+        <br>
+        <p>Visión: Ser reconocidos como una repostería de constante innovación y cambios en sus productos por la calidad, excelencia y variedad con los que cuenta.</p>
+        <br>
+        <p>Objetivos: Conseguir que sea una microempresa que cuente con un alto grado de satisfacción en sus productos a través del uso de materia prima de alta calidad para satisfacer el gusto de los consumidores o clientes.</p>
+        <br>
+        <p>Valores:<br>Respeto: Garantizar que las personas se respeten entre ellos y a la organización
+        <br>Honestidad: Comportarse de manera leal ante todos <br>Éxito: Para poder tener éxito la empresa tiene que motivar al personal de la empresa, de igual manera enfocarse en los clientes y seguir innovando. </p>
+    </section>
+
+    <section id="contacto" class="seccion">
+        <h2>Contacto</h2>
+        <form onsubmit="mostrarMensajeGracias(event)">
+            <label for="nombre">Nombre:</label>
+            <input type="text" id="nombre" name="nombre" required>
+
+            <label for="email">Correo Electrónico:</label>
+            <input type="email" id="email" name="email" required>
+
+            <label for="mensaje">Mensaje:</label>
+            <textarea id="mensaje" name="mensaje" required></textarea>
+
+            <button type="submit">Enviar</button>
+        </form>
+        <p class="mensaje-gracias">¡Gracias por contactarnos! Nos pondremos en contacto contigo pronto.</p>
+        <p>Av. Independencia 220, 18 de marzo, 92736 Álamo Ver.</p>
+        <p>@paladar_feli<br>(52) 7651039969</p>
+    </section>
+
+    <script>
+        // Función para mostrar una sección y ocultar las demás
+        function mostrarSeccion(seccionId) {
+            document.querySelectorAll('.seccion').forEach(seccion => {
+                seccion.style.display = 'none';
+            });
+            document.getElementById(seccionId).style.display = 'block';
+        }
+
+        // Función para mostrar el mensaje de agradecimiento
+        function mostrarMensajeGracias(event) {
+            event.preventDefault();
+            document.querySelector(".mensaje-gracias").style.display = "block";
+        }
+    </script>
+
+</body>
+</html>
